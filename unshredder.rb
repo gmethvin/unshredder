@@ -43,10 +43,12 @@ class ImageStrip
 end
 
 def get_col_diff(im, x1, x2)
-    (0...im.rows).inject(0) { |diff, y|
+    sum = 0
+    (0...im.rows).inject(0.0) { |diff, y|
         p1, p2 = im.pixel_color(x1, y), im.pixel_color(x2, y);
-        diff + (p1.red - p2.red).abs + (p1.green - p2.green).abs + (p1.blue - p2.blue).abs + (p1.opacity - p2.opacity).abs
-    }
+        sum += p1.red + p1.green + p1.blue + p2.red + p2.green + p2.blue
+        diff + (p1.red - p2.red).abs + (p1.green - p2.green).abs + (p1.blue - p2.blue).abs
+    } / sum
 end
 
 def detect_strip_width(im, gcdDepth = 3)
