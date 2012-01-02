@@ -56,12 +56,12 @@ def detect_strip_width(im, gcdDepth = 3)
         get_col_diff(im, i - 1, i)
     }
     cols_by_diff = (1...im.columns).sort_by { |col|
-        col_diffs[col - 1]
+        -col_diffs[col - 1]
     }
 
-    gcd = cols_by_diff[-1]
+    gcd = cols_by_diff[0]
     gcdDepth.times { |i|
-        gcd = gcd.gcd(cols_by_diff[-i - 2])
+        gcd = gcd.gcd(cols_by_diff[i + 1])
     }
     gcd
 end
