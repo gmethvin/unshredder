@@ -146,18 +146,15 @@ def unshred(srcFile, destFile)
 end
 
 if ARGV.empty?
-    printf("usage: ./unshredder.rb <input file name> \n")
-    exit
+    puts "usage: #{$PROGRAM_NAME} <input file> [<output file>]"
+    exit(1)
+elsif !File.exist?(ARGV[0])
+    puts "#{ARGV[0]} does not exist."
+    exit(1)
 end
 
-if File.exist?(ARGV[0])
-    srcFile = ARGV[0]
-else
-    printf("%s does not exist.\n", ARGV[0])
-    exit
-end
-
+srcFile = ARGV[0]
 destFile = ARGV[1] || File.basename(srcFile, ".*") + "_unshredded" + File.extname(srcFile)
 
-unshred(srcFile, destFile);
+unshred(srcFile, destFile)
 
