@@ -122,12 +122,13 @@ def arrange_strips(strips, rankDepth = 3)
 end
 
 def unshred(srcFile, destFile)
+    puts "Reading #{srcFile}"
     srcImage = Magick::ImageList.new(srcFile)
     stripWidth = detect_strip_width(srcImage)
     numStrips = srcImage.columns / stripWidth
 
-    printf("strip width = %d\n", stripWidth)
-    printf("number of strips = %d\n", numStrips)
+    puts "strip width = #{stripWidth}"
+    puts "number of strips = #{numStrips}"
 
     strips = arrange_strips(generate_strips(srcImage, stripWidth, numStrips))
 
@@ -139,6 +140,8 @@ def unshred(srcFile, destFile)
             }
         }
     }
+
+    puts "Writing #{destFile}"
     destImage.write(destFile)
 end
 
